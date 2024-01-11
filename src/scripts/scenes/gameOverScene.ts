@@ -27,34 +27,68 @@ export default class GameOver extends Phaser.Scene
     {
         //Background
 
-        let x = 16
-        let w = this.CONFIG.width - 30*x;
-        let marginX = this.CONFIG.width/2 - w/2 - x;
+        // let x = 16
+        // let w = this.CONFIG.width - 30*x;
+        // let marginX = this.CONFIG.width/2 - w/2 - x;
 
-        let h = this.CONFIG.height/2;
-        let y = 148;
+        // let h = this.CONFIG.height/2;
+        // let y = 148;
 
-        this.background = this.add.graphics({ x: x, y: y})
-        this.background.fillStyle(0x302C2E, 1);
-        this.background.fillRect(marginX, 0, w - x, h, 15);
+        // // this.background = this.add.graphics({ x: x, y: y})
+        // // this.background.fillStyle(0x302C2E, 1);
+        // // this.background.fillRect(marginX, 0, w - x, h, 15);
 
-        // Title
+        // // Title
         this.title = new Text(
-            this, marginX + 0.5*w, 207, 'Game Over', 'title'
+            this, this.CONFIG.width / 2, this.CONFIG.height/2 - 200, 'Game Over', 'title'
         );
-
-        this.title.setOrigin(0.5, 0.5)
-
+        
         this.txt_score = new Text(
-            this, marginX + 0.5*w, y + 0.5*h, 'Wynik: ' + this.score, 'title'
+            this, this.CONFIG.width / 2, this.CONFIG.height/2 - 120, 'Wynik: ' + this.score, 'title'
         )
 
-        this.txt_score.setOrigin(0.5, 0.5)
+        const menuButton = this.add.sprite(this.CONFIG.width / 2 - 100, this.CONFIG.height/2, 'MenuButton')
+        .setScale(1.5)
+        .setInteractive()
+        .on('pointerup', this.clickMenu, this)
 
-        // Buttons
+        const restartButton = this.add.sprite(this.CONFIG.width / 2 + 100, this.CONFIG.height/2, 'PlayButton')
+        .setScale(1.5)
+        .setInteractive()
+        .on('pointerup', this.clickTryAgain, this)
+      
+        // this.title.setOrigin(0.5, 0.5)
 
-        this.createAllButtons(marginX, y, w, h);
 
+        // this.txt_score.setOrigin(0.5, 0.5)
+
+        // // Buttons
+
+        // this.createAllButtons(marginX, y, w, h);
+
+        // var scoreText = this.add.text(game.config.width / 2, 100, 'Wynik: ' + yourScore, {
+        //     fontSize: '32px',
+        //     fill: '#fff'
+        //   }).setOrigin(0.5);
+        
+          // Dodanie przycisków menu i powtórzenia gry
+
+        //   const restartButton = this.add.text(this.CONFIG.width / 2 + 100, this.CONFIG.height - 50, 'Powtórz', {
+        //     fontSize: '24px',
+        //     color: '#fff',
+        //     backgroundColor: '#0f0'
+        //   }).setOrigin(0.5).setInteractive();
+        
+          // Dodaj obsługę kliknięć na przyciski
+        //   menuButton.on('pointerup', function () {
+        //     // Dodaj kod obsługujący kliknięcie w przycisk Menu
+        //     // Przykład: this.scene.start('MainMenuScene');
+        //   });
+        
+        //   restartButton.on('pointerup', function () {
+        //     // Dodaj kod obsługujący kliknięcie w przycisk Powtórz
+        //     // Przykład: this.scene.start('GameScene');
+        //   });
 
     }
 
@@ -136,6 +170,7 @@ export default class GameOver extends Phaser.Scene
     clickMenu()
     {
         this.events.emit('clickMenu');
+        console.log("siki");
     }
 
     clickTryAgain()

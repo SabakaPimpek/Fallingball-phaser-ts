@@ -76,7 +76,7 @@ export default class MainScene extends Phaser.Scene {
 
     this.createListeners();
 
-    // this.showGameOver();
+    this.showGameOver();
   }
 
   update() {
@@ -179,7 +179,7 @@ export default class MainScene extends Phaser.Scene {
     {
         this.scene.pause();
 
-        this.scene.launch('GameOverScene', { score:  parseInt(this.spriteY.y)})
+        this.scene.launch('GameOverScene', { score: Math.floor(this.cameras.main.scrollY)})
 
         let panel = this.scene.get('GameOverScene');
 

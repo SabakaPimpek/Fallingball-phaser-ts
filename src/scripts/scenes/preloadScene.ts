@@ -11,6 +11,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('RightButton', 'assets/img/RightButton.png')
     this.load.image('PlayButton', 'assets/img/PlayButton.png')
     this.load.image('MenuBackground', 'assets/img/MenuBackground.png')
+    this.load.image('MenuButton', 'assets/img/MenuButton.png')
 
     this.load.spritesheet('spritesheet', 'assets/img/spritesheet.png',
     {
