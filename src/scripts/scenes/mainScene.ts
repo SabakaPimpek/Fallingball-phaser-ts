@@ -2,11 +2,12 @@ import Player from '../objects/player'
 import FpsText from '../objects/fpsText'
 
 export default class MainScene extends Phaser.Scene {
-  fpsText
+  scoreText
   player: Phaser.Physics.Arcade.Sprite
   mapScale: number
   platformGroup: Phaser.Physics.Arcade.Group
   spriteY
+  score: Phaser.GameObjects.Text
 
   constructor() {
     super({ key: 'MainScene' })
@@ -20,31 +21,29 @@ export default class MainScene extends Phaser.Scene {
 
   create() {
     this.player = new Player(this, this.cameras.main.width / 2, 0)
-    this.fpsText = new FpsText(this)
-
     this.spriteY = this.physics.add.sprite(this.cameras.main.width/2, 0, "").setMaxVelocity(800).setAlpha(0);
+    this.scoreText = new FpsText(this)
 
     this.add.image(0, 0, 'background').setOrigin(0, 0)
         .setDepth(-1)
         .setScrollFactor(0)
     
     // display the Phaser.VERSION
-    this.add
-      .text(this.cameras.main.width - 15, 15, `Phaser v${Phaser.VERSION}`, {
-        color: '#000000',
-        fontSize: '24px'
-      })
-      .setOrigin(1, 0)
-      .setScrollFactor(0)
-      .setDepth(999)
+    // this.score = this.add
+    //   .text(this.cameras.main.width - 15, 15, `${this.cameras.main.scrollY}m`, {
+    //     color: '#000000',
+    //     fontSize: '36px',
+    //     fontStyle: 'bold'
+    //   })
+    //   .setOrigin(1, 0)
+    //   .setScrollFactor(0)
+    //   .setDepth(999)
 
     this.platformGroup = this.physics.add.group();
   
     // const generatedTile = this.
 
     const PlatformGap: number = this.mapScale * 50;
-
-    console.log(this.game.config.height);
 
     const PlatformStartingNumber = Number(this.game.config.height)/ PlatformGap + 1
 
@@ -76,12 +75,13 @@ export default class MainScene extends Phaser.Scene {
     this.cameras.main.startFollow(this.spriteY, true, 1, 1)
 
     this.createListeners();
-    this.createButtons();
+
+    // this.showGameOver();
   }
 
   update() {
-    this.fpsText.update()
-    this.player.update(this.input.keyboard?.createCursorKeys())
+    this.scoreText.update()
+    this.player.update()
     this.cameraUpdate();
     this.checkCurrentPlatform();
   }
@@ -154,7 +154,7 @@ export default class MainScene extends Phaser.Scene {
       
       const max = Math.max(...platformArray.map(obj => obj.y));
 
-      if(max - min > 2000) return;
+      if(max - min > this.cameras.main.height * 1.5 ) return;
       
       const newPlatform = this.createPlatform(max + this.mapScale * 50)
       
@@ -175,23 +175,18 @@ export default class MainScene extends Phaser.Scene {
     this.events.on('GameOver', this.showGameOver.bind(this)); //
   }
 
-  createButtons()
-  {
-      this.add.sprite(300, 300, "LeftButton")
-        .setScrollFactor(0)
-        .setInteractive()
-  }
-
   showGameOver()
     {
         this.scene.pause();
 
-        this.scene.launch('GameOverScene', { score:  this.cameras.main.scrollY})
+        this.scene.launch('GameOverScene', { score:  parseInt(this.spriteY.y)})
 
         let panel = this.scene.get('GameOverScene');
 
         panel.events.on('clickMenu', this.handleGoMenu, this);
         panel.events.on('clickTryAgain', this.handleTryAgain, this);
+
+        this.events.emit('gameOver');
     }
 
     closeGameOver()
@@ -213,7 +208,7 @@ export default class MainScene extends Phaser.Scene {
 
     goMenu()
     {
-        this.scene.start('Menu');
+        this.scene.start('menuScene');
         this.game.sound.stopAll();
     }
 

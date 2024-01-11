@@ -8,7 +8,9 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('background', 'assets/img/sky.png')
     this.load.image('tile', 'assets/img/tile.png')
     this.load.image('LeftButton', 'assets/img/LeftButton.png')
-    this.load.image('RightButton', 'assets/img/rightButton.png')
+    this.load.image('RightButton', 'assets/img/RightButton.png')
+    this.load.image('PlayButton', 'assets/img/PlayButton.png')
+    this.load.image('MenuBackground', 'assets/img/MenuBackground.png')
 
     this.load.spritesheet('spritesheet', 'assets/img/spritesheet.png',
     {
@@ -20,7 +22,7 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   create() {
-    this.scene.start('MainScene')
+    this.scene.start('menuScene')
 
     /**
      * This is how you would dynamically import the mainScene class (with code splitting),

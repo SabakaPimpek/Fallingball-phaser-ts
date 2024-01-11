@@ -2,9 +2,7 @@ import 'phaser'
 import MainScene from './scenes/mainScene'
 import PreloadScene from './scenes/preloadScene'
 import GameOverScene from './scenes/gameOverScene'
-
-const DEFAULT_WIDTH = 960
-const DEFAULT_HEIGHT = 480
+import menuScene from './scenes/menuScene'
 
 const config = {
   type: Phaser.AUTO,
@@ -17,7 +15,7 @@ const config = {
     width: innerWidth,
     height: innerHeight
   },
-  scene: [PreloadScene, MainScene, GameOverScene],
+  scene: [PreloadScene, MainScene, GameOverScene, menuScene],
   physics: {
     default: 'arcade',
     arcade: {
