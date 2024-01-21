@@ -15,8 +15,16 @@ export default class MainScene extends Phaser.Scene {
 
   init()
   {
+    const width = Number(this.game.config.width);
     this.mapScale = 4;
+    // this.mapScale = this.game.scale.isGameLandscape? 4 : 2;
     // this.tileGroup = this.physics.add.group;
+
+    if(Math.floor(width / 1000) <= 0) this.mapScale = 2;
+    else this.mapScale = Math.floor(width / 1000) + 3;
+
+    // this.showGameOver();
+    
   }
 
   create() {
@@ -76,7 +84,6 @@ export default class MainScene extends Phaser.Scene {
 
     this.createListeners();
 
-    this.showGameOver();
   }
 
   update() {
@@ -112,6 +119,7 @@ export default class MainScene extends Phaser.Scene {
 
 
         let tile = this.physics.add.sprite(i * tileWidth, xPos, 'tile');
+        tile.texture.setFilter(Phaser.Textures.NEAREST)
         // tile.setTexture("spritesheet", 158)
         tile.setScale(this.mapScale);
 

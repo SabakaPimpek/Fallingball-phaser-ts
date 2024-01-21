@@ -28,7 +28,7 @@ export default class Text {
         let style = {
             fontFamily: 'Roboto',
             fontSize: 32,
-            color: '0xFFFFFF',
+            color: 0x000000,
             align: 'center'
         };
 
@@ -93,43 +93,48 @@ export default class Text {
     }
 
     // Setters ----------------------------
-    setText (string)
+    setText (string: string)
     {
         this.text = string;
         this.obj.setText(string);
     }
 
-    setX (x)
+    setX (x: number)
     {
         this.x = x;
         this.obj.setX(x);
     }
 
-    setY (y)
+    setY (y: number)
     {
         this.y = y;
         this.obj.setY(y);
     }
 
-    setOrigin (origin)
+    setOrigin (origin: number)
     {
         this.origin = this.initOrigin(origin);
         this.obj.setOrigin(origin);
     }
 
-    setDepth (depth)
+    setDepth (depth: number)
     {
         this.obj.setDepth(depth)
     }
 
-    setScrollFactor (scrollX, scrollY)
+    setScrollFactor (scrollX: number, scrollY: number)
     {
         this.obj.setScrollFactor(scrollX, scrollY)
     }
 
-    setVisible(visible)
+    setVisible(visible: boolean)
     {
         this.obj.setVisible(visible );
+    }
+
+    setColor(color)
+    {
+        this.obj.style.setColor(color)
     }
 
     //Getters --------

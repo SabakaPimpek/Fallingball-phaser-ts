@@ -7,21 +7,25 @@ import menuScene from './scenes/menuScene'
 const config = {
   type: Phaser.AUTO,
   backgroundColor: '#ffffff',
-  pixelArt       : true,
+  // pixelArt       : true,
   scale: {
     parent: 'phaser-game',
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
     width: innerWidth,
-    height: innerHeight
+    height: innerHeight,
+    
   },
   scene: [PreloadScene, MainScene, GameOverScene, menuScene],
   physics: {
     default: 'arcade',
     arcade: {
-      debug: true,
-      gravity: { y: 800 }
+      gravity: { y: 800 },
+      // debug: true
     }
+  },
+  fps: {
+    target: 120
   }
 }
 
